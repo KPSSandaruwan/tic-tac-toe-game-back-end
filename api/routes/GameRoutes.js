@@ -5,5 +5,5 @@ module.exports = function(app) {
 
   app.post("/auth/start-game", [Auth], GameController.startGame);
   app.post("/auth/play-turn", [Auth], GameController.playTurn);
-
+  app.post("/auth/reset-game", [Auth], GameController.resetGame);
 };

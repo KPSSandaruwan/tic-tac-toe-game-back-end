@@ -54,21 +54,6 @@ UserSchema.methods.generateToken = function (callBack) {
   callBack(null, token);
 };
 
-// Validating token for auth routes middleware
-// UserSchema.statics.findByToken = function (token, callBack) {
-//   jwt.verify(token, process.env.SECRETE, function (err, decode) {
-//     // This decode must give user_id if token is valid .ie decode = user_id
-//     User.findById(decode, function (err, user) {
-//       if (err) {
-//         res.json({ status: false, data: "Invalid User ID" });
-//       }
-
-//       callBack(null, user);
-//     });
-//   });
-// };
-
-
 UserSchema.statics.findByToken = function (token) {
   return new Promise((resolve, reject) => {
     jwt.verify(token, process.env.SECRETE, (err, decode) => {

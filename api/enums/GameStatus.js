@@ -1,7 +1,8 @@
 const GameStatus = {
-  Pending: 'Super_Admin',
-  ADMIN: 'Admin',
-  CUSTOMER: 'Customer',
+  DRAW: 'draw',
+  WON: 'won',
+  LOOSE: 'loose',
+  PROGRESS: 'progress'
 }
 
 

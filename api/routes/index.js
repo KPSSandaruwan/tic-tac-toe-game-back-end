@@ -6,7 +6,7 @@ router.get("/", function (req, res) {
 });
 
 require('./AuthRoutes')(router);
-// require('./BookRoutes')(router);
+require('./GameRoutes')(router);
 
 module.exports.router = router;
 

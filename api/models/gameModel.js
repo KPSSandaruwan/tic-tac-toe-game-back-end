@@ -7,10 +7,7 @@ const GameSchema = new Schema({
   //   required: [true, "Username is required!"],
   //   ref: "Player"
   // },
-  playerX: {
-    type: String
-  },
-  playerO: {
+  player: {
     type: String
   },
   board: {

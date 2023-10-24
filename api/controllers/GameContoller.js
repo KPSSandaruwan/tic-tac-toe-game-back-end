@@ -51,6 +51,7 @@ exports.playTurn = async (req, res) => {
         game.currentPlayer = 'X';
       }
       
+      // Server move
       const emptyCells = [];
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
@@ -66,6 +67,12 @@ exports.playTurn = async (req, res) => {
         game.board[serverMove.row][serverMove.col] = game.currentPlayer;
       }
 
+      if (game.currentPlayer === 'X') {
+        game.currentPlayer = 'O';
+      } else {
+        game.currentPlayer = 'X';
+      }
+
       let savedGame = await game.save();
       return res.status(200).json({ success: true, message: 'Move made successfully', data: savedGame });
     }
@@ -73,7 +80,7 @@ exports.playTurn = async (req, res) => {
   } catch (err) {
     return res.status(422).json({
       success: false,
-      message: "Game created failed!",
+      message: "Move made failed!",
       data: err.message,
     });
   }

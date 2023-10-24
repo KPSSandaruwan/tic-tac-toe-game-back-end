@@ -55,18 +55,42 @@ UserSchema.methods.generateToken = function (callBack) {
 };
 
 // Validating token for auth routes middleware
-UserSchema.statics.findByToken = function (token, callBack) {
-  jwt.verify(token, process.env.SECRETE, function (err, decode) {
-    // This decode must give user_id if token is valid .ie decode = user_id
-    User.findById(decode, function (err, user) {
-      if (err) {
-        res.json({ status: false, data: "Invalid User ID" });
-      }
+// UserSchema.statics.findByToken = function (token, callBack) {
+//   jwt.verify(token, process.env.SECRETE, function (err, decode) {
+//     // This decode must give user_id if token is valid .ie decode = user_id
+//     User.findById(decode, function (err, user) {
+//       if (err) {
+//         res.json({ status: false, data: "Invalid User ID" });
+//       }
 
-      callBack(null, user);
+//       callBack(null, user);
+//     });
+//   });
+// };
+
+
+UserSchema.statics.findByToken = function (token) {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, process.env.SECRETE, (err, decode) => {
+      if (err) {
+        return reject('Invalid Token');
+      }
+      
+      User.findById(decode)
+        .then((user) => {
+          if (!user) {
+            reject('Invalid User ID');
+          } else {
+            resolve(user);
+          }
+        })
+        .catch((err) => {
+          reject(err);
+        });
     });
   });
 };
+
 
 
 const User = mongoose.model('User', UserSchema);

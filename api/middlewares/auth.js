@@ -7,21 +7,22 @@ const Auth = (req, res, next) => {
         if (token.startsWith('Bearer')) {
             token = token.slice(7, token.length);
         }
-
-        User.findByToken(token, (err, user) => {
-            if (err) throw err;
-
-            if (!user) {
-                res.status(400).json({
-                    success: false,
-                    message: "No valid token provided!"
-                });
-            }
-
-            req.token = token;
-            req.user = user;
-
-            next();
+        User.findByToken(token)
+            .then((user) => {
+                if (!user) {
+                    res.status(400).json({
+                        success: false,
+                        message: "No valid token provided!"
+                    });
+                }
+    
+                req.token = token;
+                req.user = user;
+    
+                next();
+            })
+            .catch((error) => {
+                throw error;
         });
     } else {
         res.status(400).json({

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "set NODE_ENV=dev && nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "seed": "node api/seeds/runner.js"
   },
   "repository": {
     "type": "git",

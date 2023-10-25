@@ -3,11 +3,6 @@ const Schema = mongoose.Schema;
 const GameStatus = require("../enums/GameStatus")
 
 const GameSchema = new Schema({
-  // player: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   required: [true, "Username is required!"],
-  //   ref: "Player"
-  // },
   player: {
     type: String
   },
